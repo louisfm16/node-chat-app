@@ -30,11 +30,13 @@ io.on('connection', (socket) => {
         // Sends event to all clients
         io.emit('newMessage', generateMessage(msg.from, msg.text));
 
-        callback('This is from the server.');
+        callback();
     });
 
-    socket.on('createLocationMessage', (coords) => {
+    socket.on('createLocationMessage', (coords, callback) => {
         io.emit('newLocationMessage', generateLocationMessage('Admin', coords.lat, coords.lon));
+
+        callback();
     });
 
     socket.on('disconnect', () => {
