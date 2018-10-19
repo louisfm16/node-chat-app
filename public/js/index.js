@@ -9,27 +9,32 @@ socket.on('disconnect', function() {
     console.log('Disconnected from server!');
 });
 
-socket.on('newMessage', function(newMessage) {
-    console.log('newUser', newMessage);
+socket.on('newMessage', function(msg) {
+    console.log('newUser', msg);
 });
 
-socket.on('newMessage', function(newMessage) {
-    console.log('newMessage', newMessage);
+socket.on('newMessage', function(msg) {
+    console.log('newMessage', msg);
 
     var li = jQuery('<li></li>');
+    var i = jQuery(`<i>${msg.createdAt}</i>`);
 
-    li.text(`${newMessage.from}: ${newMessage.text}`);
+    li.text(`${msg.from}: ${msg.text}`);
+    li.append(i);
+
     jQuery('#messages').append(li);
 });
 
 socket.on('newLocationMessage', function(msg) {
     var li = jQuery('<li></li>');
     var a = jQuery('<a target="_blank">My current location</a>');
+    var i = jQuery(`<i>${msg.createdAt}</i>`);
 
     li.text(`${msg.from}: `);
     a.attr('href', msg.url);
 
     li.append(a);
+    li.append(i);
     jQuery('#messages').append(li);
 });
 
