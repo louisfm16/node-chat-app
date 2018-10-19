@@ -18,17 +18,19 @@ io.on('connection', (socket) => {
     console.log('New user connected');
 
     // socket.emit from admin text Welcome to the chat app
-    socket.emit('newUser', generateMessage('Admin', 'Welcome to the chat app!'));
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!'));
 
     // Sends event to all except sender
     // socket.broadcast.emit from Admin text New user joined
-    socket.broadcast.emit('newUser', generateMessage('Admin', 'New user _______ has joined!'));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user _______ has joined!'));
 
-    socket.on('createMessage', (msg) => {
+    socket.on('createMessage', (msg, callback) => {
         console.log('New message created!');
 
         // Sends event to all clients
         io.emit('newMessage', generateMessage(msg.from, msg.text));
+
+        callback('This is from the server.');
     });
 
     socket.on('disconnect', () => {
