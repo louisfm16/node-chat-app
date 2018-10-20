@@ -13,8 +13,6 @@ describe('generateMessage', () => {
         expect(res.from).toEqual(from);
         // assert text match
         expect(res.text).toEqual(text);
-        // assert createdAt is a number
-        expect(res.createdAt).toBeA('number');
     });
 });
 
@@ -26,7 +24,6 @@ describe('generateLocationMessage', () => {
 
         var res = generateLocationMessage(from, lat, lon);
 
-        expect(res.createdAt).toBeA('number');
         expect(res.from).toEqual(from);
         expect(res.url).toEqual(`https://www.google.com/maps?q=1,1`);
     });
